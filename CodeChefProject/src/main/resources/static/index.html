@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Campus CodeChef chapter portal - browse rated contests, DSA workshops, hackathons and tech talks, and register in seconds.">
+<title>CodeChef Campus Chapter | Contests, Workshops &amp; Events</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%235B4638'/><text x='50' y='70' font-size='52' font-family='monospace' font-weight='bold' fill='%23F6E7CF' text-anchor='middle'>CC</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap">
+<link rel="stylesheet" href="css/theme.css">
+<!-- loaded in <head> so the stored light/dark theme is applied before the first paint -->
+<script src="js/core.js"></script>
+</head>
+<body>
+
+<header class="cc-nav">
+	<div class="cc-container cc-nav-inner">
+		<a class="u-flex u-center u-gap-3" href="index.html" style="text-decoration:none;color:inherit">
+			<span class="cc-brand-mark" aria-hidden="true">&lt;/&gt;</span>
+			<span class="u-flex u-col">
+				<span class="cc-brand-title">CodeChef Chapter</span>
+				<span class="cc-brand-sub">Campus Club</span>
+			</span>
+		</a>
+
+		<nav class="cc-nav-menu" data-nav-menu aria-label="Main navigation">
+			<a class="cc-nav-link" data-nav-link href="index.html">Home</a>
+			<a class="cc-nav-link" href="#events">Events</a>
+			<a class="cc-nav-link" href="#featured">Spotlight</a>
+			<a class="cc-nav-link" href="#about">About</a>
+		</nav>
+
+		<div class="cc-nav-actions">
+			<button type="button" class="cc-icon-btn" data-theme-toggle aria-pressed="false"
+				aria-label="Toggle light and dark theme">
+				<span data-theme-icon aria-hidden="true">&#9789;</span>
+			</button>
+			<a class="cc-btn cc-btn-outline cc-hide-sm" href="admin.html">Admin Console</a>
+			<button type="button" class="cc-icon-btn cc-nav-toggle" data-nav-toggle
+				aria-expanded="false" aria-controls="primary-nav" aria-label="Open navigation menu">
+				<span aria-hidden="true">&#9776;</span>
+			</button>
+		</div>
+	</div>
+</header>
+
+<main>
+
+	<!-- ============================ Hero ============================ -->
+	<section class="cc-container u-py-5" id="home">
+		<div class="cc-hero cc-fade-up u-p-5">
+			<div class="u-hero-grid u-relative" style="z-index:1">
+				<div>
+					<span class="cc-eyebrow">
+						<span class="u-divider-dot" aria-hidden="true"></span>
+						Season 2026 &middot; Official CodeChef Campus Chapter
+					</span>
+
+					<h1 class="cc-heading u-mt-4" style="font-size:clamp(2rem,5vw,3.05rem)">
+						Compete, learn and <span class="cc-gold-text">rank up</span> with the campus
+						CodeChef chapter.
+					</h1>
+
+					<p class="cc-soft u-mt-4" style="max-width:54ch;font-size:1rem;line-height:1.75">
+						Monthly rated contests, DSA workshops, hackathons and ICPC preparation &mdash;
+						all scheduled in one place. Register with your college email, get your contest
+						slot confirmed instantly and start collecting those stars.
+					</p>
+
+					<div class="u-flex u-wrap u-gap-3 u-mt-5">
+						<button type="button" class="cc-btn cc-btn-gold" data-open-register>
+							Register for an event
+						</button>
+						<a class="cc-btn cc-btn-outline" href="#events">Explore the calendar</a>
+					</div>
+
+					<div class="u-stats u-mt-6">
+						<div class="cc-stat-card">
+							<div class="cc-stat-value" id="statEvents">&mdash;</div>
+							<div class="cc-stat-label u-mt-1">Events scheduled</div>
+						</div>
+						<div class="cc-stat-card">
+							<div class="cc-stat-value" id="statUpcoming">&mdash;</div>
+							<div class="cc-stat-label u-mt-1">Upcoming</div>
+						</div>
+						<div class="cc-stat-card">
+							<div class="cc-stat-value" id="statRegistrations">&mdash;</div>
+							<div class="cc-stat-label u-mt-1">Students registered</div>
+						</div>
+						<div class="cc-stat-card">
+							<div class="cc-stat-value" id="statCategories">&mdash;</div>
+							<div class="cc-stat-label u-mt-1">Categories</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="cc-terminal cc-scroll">
+					<div class="cc-terminal-bar">
+						<span class="cc-dot" style="background:#FF5F57" aria-hidden="true"></span>
+						<span class="cc-dot" style="background:#FEBC2E" aria-hidden="true"></span>
+						<span class="cc-dot" style="background:#28C840" aria-hidden="true"></span>
+						<span class="u-ml-auto" style="font-size:.68rem;color:#8A93A5">chapter_terminal</span>
+					</div>
+					<div class="cc-terminal-body cc-scroll"><code class="cc-code-line"><span class="c">$ codechef chapter --status
+</span><span class="c"># season 2026 &middot; registrations open
+</span><span class="k">const</span> <span class="t">chapter</span> = <span class="k">require</span>(<span class="s">'./campus-codechef'</span>);
+
+<span class="k">await</span> chapter.<span class="t">join</span>({
+  handle: <span class="s">'your_cc_handle'</span>,
+  tracks: [<span class="s">'DSA'</span>, <span class="s">'CP'</span>, <span class="s">'ICPC'</span>]
+});
+
+<span class="c">&#10003; welcome to the chapter, coder.</span>
+<span class="g">&#9656; next_contest:</span> <span class="n">see spotlight below</span></code>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- ======================= Featured spotlight ======================= -->
+	<section class="cc-container u-py-5" id="featured">
+		<div class="u-flex u-between u-center u-wrap u-gap-3 u-mb-4">
+			<div>
+				<h2 class="cc-section-title">Event spotlight</h2>
+				<p class="cc-muted u-mt-1" style="font-size:.9rem">
+					The headline contest picked by the chapter core team, with a live countdown.
+				</p>
+			</div>
+			<span class="cc-chip">
+				<span aria-hidden="true">&#9873;</span>
+				<span id="featuredBadge">Loading&hellip;</span>
+			</span>
+		</div>
+
+		<div id="featuredSpotlight" aria-live="polite">
+			<div class="cc-card cc-card-pad">
+				<div class="cc-skeleton" style="height:24px;width:45%"></div>
+				<div class="cc-skeleton u-mt-3" style="height:16px;width:70%"></div>
+				<div class="cc-skeleton u-mt-4" style="height:64px;width:100%"></div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ======================== Event explorer ========================= -->
+	<section class="cc-container u-py-5" id="events">
+		<div class="u-flex u-between u-center u-wrap u-gap-3 u-mb-4">
+			<div>
+				<h2 class="cc-section-title">Contests &amp; events</h2>
+				<p class="cc-muted u-mt-1" style="font-size:.9rem">
+					Search the calendar and filter by track. Registration takes under a minute.
+				</p>
+			</div>
+			<span class="cc-chip"><span id="eventCount">Loading&hellip;</span></span>
+		</div>
+
+		<div class="cc-card cc-card-pad u-mb-5">
+			<div class="u-flex u-between u-center u-wrap u-gap-3">
+				<label class="u-flex u-center u-gap-2 u-grow" style="min-width:220px">
+					<span class="u-sr-only">Search events by name</span>
+					<input type="search" id="eventSearch" class="cc-input"
+						placeholder="Search contests, workshops, hackathons&hellip;" autocomplete="off">
+				</label>
+				<div class="u-flex u-center u-gap-2">
+					<label class="u-sr-only" for="eventSort">Sort events</label>
+					<select id="eventSort" class="cc-select" style="width:auto;min-width:180px">
+						<option value="date">Sort: date (soonest)</option>
+						<option value="name">Sort: name (A&ndash;Z)</option>
+						<option value="category">Sort: category</option>
+					</select>
+					<button type="button" class="cc-btn cc-btn-ghost" id="clearFilters">Reset</button>
+				</div>
+			</div>
+
+			<div class="u-flex u-wrap u-gap-2 u-mt-4" id="categoryPills" role="group"
+				aria-label="Filter events by category">
+				<!-- filled by app.js -->
+			</div>
+		</div>
+
+		<div class="u-cards" id="eventGrid" aria-live="polite">
+			<!-- filled by app.js -->
+		</div>
+	</section>
+	<!-- ============================= About ============================= -->
+	<section class="cc-container u-py-5" id="about">
+		<div class="u-flex u-between u-center u-wrap u-gap-3 u-mb-4">
+			<div>
+				<h2 class="cc-section-title">How the chapter runs</h2>
+				<p class="cc-muted u-mt-1" style="font-size:.9rem">
+					Four tracks, one calendar, zero paperwork &mdash; everything is handled by this portal.
+				</p>
+			</div>
+		</div>
+
+		<div class="u-gap-grid">
+			<article class="cc-card cc-card-hover cc-card-pad">
+				<span class="cc-badge cc-badge-contest">Rated Contest</span>
+				<h3 class="u-mt-3" style="font-size:1.05rem">Monthly rated rounds</h3>
+				<p class="cc-soft u-mt-2" style="font-size:.875rem;line-height:1.65">
+					Three-hour contests mirroring the CodeChef division system. Solve, get rated and
+					climb from Div 4 to Div 1.
+				</p>
+			</article>
+			<article class="cc-card cc-card-hover cc-card-pad">
+				<span class="cc-badge cc-badge-workshop">DSA Workshop</span>
+				<h3 class="u-mt-3" style="font-size:1.05rem">Hands-on DSA sessions</h3>
+				<p class="cc-soft u-mt-2" style="font-size:.875rem;line-height:1.65">
+					Weekly problem-solving sprints on graphs, DP and trees, led by seniors who have
+					already cleared the placement grind.
+				</p>
+			</article>
+			<article class="cc-card cc-card-hover cc-card-pad">
+				<span class="cc-badge cc-badge-hackathon">Hackathon</span>
+				<h3 class="u-mt-3" style="font-size:1.05rem">Build weekends</h3>
+				<p class="cc-soft u-mt-2" style="font-size:.875rem;line-height:1.65">
+					Team up, ship a working prototype in 24&ndash;36 hours and pitch it to a panel of
+					alumni engineers.
+				</p>
+			</article>
+			<article class="cc-card cc-card-hover cc-card-pad">
+				<span class="cc-badge cc-badge-icpc">ICPC Prep</span>
+				<h3 class="u-mt-3" style="font-size:1.05rem">Team contest training</h3>
+				<p class="cc-soft u-mt-2" style="font-size:.875rem;line-height:1.65">
+					Mock regionals, solution discussions and strategy drills for teams targeting the
+					ICPC preliminary round.
+				</p>
+			</article>
+		</div>
+
+		<div class="cc-card cc-card-pad u-mt-5">
+			<div class="u-split u-center">
+				<div>
+					<h3 style="font-size:1.1rem">Ready for the next round?</h3>
+					<p class="cc-soft u-mt-2" style="font-size:.9rem;line-height:1.7">
+						Pick any event from the calendar, fill in four details and your seat is booked.
+						A student can register once per event &mdash; duplicates are rejected automatically.
+					</p>
+				</div>
+				<div class="u-flex u-wrap u-gap-3 u-jend">
+					<button type="button" class="cc-btn cc-btn-primary" data-open-register>
+						Open registration form
+					</button>
+					<a class="cc-btn cc-btn-outline" href="admin.html">Chapter admin view</a>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- ====================== Registration modal ====================== -->
+	<div class="cc-modal-backdrop" id="registrationModal" role="dialog" aria-modal="true"
+		aria-labelledby="registrationModalTitle" aria-hidden="true">
+		<div class="cc-modal">
+			<div class="cc-modal-head">
+				<div>
+					<h2 id="registrationModalTitle" style="font-size:1.15rem">Event registration</h2>
+					<p class="cc-muted u-mt-1" style="font-size:.85rem">
+						Your seat is confirmed the moment you submit.
+					</p>
+				</div>
+				<button type="button" class="cc-icon-btn" data-modal-close aria-label="Close dialog">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<form id="registrationForm" novalidate>
+				<div class="cc-modal-body">
+					<!-- Backend errors (duplicate registration, validation) land here -->
+					<p id="registrationError" class="cc-form-alert u-hidden" role="alert"
+						aria-live="assertive"></p>
+
+					<div class="u-grid u-gap-4">
+						<div>
+							<label class="cc-label" for="regEvent">
+								Contest / event <span class="cc-required">*</span>
+							</label>
+							<select id="regEvent" name="eventId" class="cc-select" required data-autofocus>
+								<option value="">Loading events&hellip;</option>
+							</select>
+							<p class="cc-field-error" data-error-for="eventId"></p>
+							<p id="regEventSummary" class="cc-event-summary u-hidden"></p>
+						</div>
+
+						<div class="u-split">
+							<div>
+								<label class="cc-label" for="regName">
+									Full name <span class="cc-required">*</span>
+								</label>
+								<input id="regName" name="studentName" type="text" class="cc-input"
+									maxlength="120" placeholder="Aarav Sharma" autocomplete="name" required>
+								<p class="cc-field-error" data-error-for="studentName"></p>
+							</div>
+							<div>
+								<label class="cc-label" for="regEmail">
+									College email <span class="cc-required">*</span>
+								</label>
+								<input id="regEmail" name="email" type="email" class="cc-input"
+									maxlength="160" placeholder="aarav@college.edu" autocomplete="email" required>
+								<p class="cc-field-error" data-error-for="email"></p>
+							</div>
+						</div>
+
+						<div class="u-split">
+							<div>
+								<label class="cc-label" for="regCollege">
+									College / Year <span class="cc-required">*</span>
+								</label>
+								<input id="regCollege" name="collegeOrYear" type="text" class="cc-input"
+									maxlength="120" placeholder="Engineering College &middot; 3rd Year" required>
+								<p class="cc-field-error" data-error-for="collegeOrYear"></p>
+							</div>
+							<div>
+								<label class="cc-label" for="regPhone">
+									Phone number <span class="cc-required">*</span>
+								</label>
+								<input id="regPhone" name="phoneNumber" type="tel" class="cc-input"
+									maxlength="20" placeholder="+91 98765 43210" autocomplete="tel" required>
+								<p class="cc-field-error" data-error-for="phoneNumber"></p>
+							</div>
+						</div>
+
+						<p class="cc-muted" style="font-size:.78rem;line-height:1.6">
+							One registration per email per event. These details are used only for
+							contest coordination and certificates.
+						</p>
+					</div>
+				</div>
+
+				<div class="cc-modal-foot">
+					<button type="button" class="cc-btn cc-btn-ghost" data-modal-close>Cancel</button>
+					<button type="submit" class="cc-btn cc-btn-primary" id="registrationSubmit">
+						Confirm registration
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+</main>
+
+<footer class="cc-footer">
+	<div class="cc-container u-py-6">
+		<div class="u-flex u-between u-wrap u-gap-4">
+			<div>
+				<div class="u-flex u-center u-gap-3">
+					<span class="cc-brand-mark" aria-hidden="true">&lt;/&gt;</span>
+					<span class="cc-brand-title">CodeChef Campus Chapter</span>
+				</div>
+				<p class="cc-muted u-mt-3" style="font-size:.83rem;max-width:46ch;line-height:1.7">
+					Student-run competitive programming community. Contests, workshops and hackathons
+					organised on campus every semester.
+				</p>
+			</div>
+			<div class="u-flex u-gap-6 u-wrap">
+				<div>
+					<div class="cc-stat-label">Explore</div>
+					<div class="u-grid u-gap-2 u-mt-3" style="font-size:.85rem">
+						<a class="cc-link" href="#events">Event calendar</a>
+						<a class="cc-link" href="#featured">Spotlight contest</a>
+						<a class="cc-link" href="#about">Chapter tracks</a>
+					</div>
+				</div>
+				<div>
+					<div class="cc-stat-label">Chapter</div>
+					<div class="u-grid u-gap-2 u-mt-3" style="font-size:.85rem">
+						<a class="cc-link" href="admin.html">Admin console</a>
+						<a class="cc-link" href="api/events" target="_blank" rel="noopener">Events API</a>
+						<a class="cc-link" href="h2-console" target="_blank" rel="noopener">Database console</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<hr class="cc-divider">
+		<p class="cc-muted" style="font-size:.78rem">
+			&copy; <span id="footerYear">2026</span> CodeChef Campus Chapter &middot; Built with Spring Boot and
+			lots of coffee.
+		</p>
+	</div>
+</footer>
+
+<script src="js/app.js" defer></script>
+</body>
+</html>

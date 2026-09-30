@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Chapter admin console - create and edit contests, review registrations and track student sign-ups.">
+<title>Admin Console | CodeChef Campus Chapter</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%235B4638'/><text x='50' y='70' font-size='52' font-family='monospace' font-weight='bold' fill='%23F6E7CF' text-anchor='middle'>CC</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap">
+<link rel="stylesheet" href="css/theme.css">
+<!-- loaded in <head> so the stored light/dark theme is applied before the first paint -->
+<script src="js/core.js"></script>
+</head>
+<body>
+
+<header class="cc-nav">
+	<div class="cc-container cc-nav-inner">
+		<a class="u-flex u-center u-gap-3" href="index.html" style="text-decoration:none;color:inherit">
+			<span class="cc-brand-mark" aria-hidden="true">&lt;/&gt;</span>
+			<span class="u-flex u-col">
+				<span class="cc-brand-title">CodeChef Chapter</span>
+				<span class="cc-brand-sub">Admin Console</span>
+			</span>
+		</a>
+
+		<nav class="cc-nav-menu" data-nav-menu aria-label="Main navigation">
+			<a class="cc-nav-link" href="index.html">Home</a>
+			<a class="cc-nav-link" data-nav-link href="admin.html">Admin</a>
+			<a class="cc-nav-link" data-tab="events-panel" href="#events-panel">Events</a>
+			<a class="cc-nav-link" data-tab="students-panel" href="#students-panel">Students</a>
+		</nav>
+
+		<div class="cc-nav-actions">
+			<button type="button" class="cc-icon-btn" data-theme-toggle aria-pressed="false"
+				aria-label="Toggle light and dark theme">
+				<span data-theme-icon aria-hidden="true">&#9789;</span>
+			</button>
+			<a class="cc-btn cc-btn-outline cc-hide-sm" href="index.html">Student view</a>
+			<button type="button" class="cc-icon-btn cc-nav-toggle" data-nav-toggle
+				aria-expanded="false" aria-controls="primary-nav" aria-label="Open navigation menu">
+				<span aria-hidden="true">&#9776;</span>
+			</button>
+		</div>
+	</div>
+</header>
+
+<main class="cc-container u-py-5">
+
+	<!-- ============================ Header ============================ -->
+	<section class="cc-card cc-card-pad cc-fade-up">
+		<div class="u-flex u-between u-center u-wrap u-gap-4">
+			<div>
+				<span class="cc-eyebrow">
+					<span class="u-divider-dot" aria-hidden="true"></span>
+					Chapter core team &middot; season 2026
+				</span>
+				<h1 class="cc-heading u-mt-3" style="font-size:clamp(1.6rem,3.6vw,2.3rem)">
+					Event control room
+				</h1>
+				<p class="cc-soft u-mt-3" style="font-size:.9rem;line-height:1.7;max-width:62ch">
+					Publish contests and workshops, promote one as the spotlight event, and keep an
+					eye on every student sign-up. All changes hit the REST API immediately.
+				</p>
+			</div>
+			<div class="u-flex u-wrap u-gap-3">
+				<button type="button" class="cc-btn cc-btn-outline" id="refreshAll">Refresh data</button>
+				<button type="button" class="cc-btn cc-btn-gold" id="newEvent">
+					+ New event
+				</button>
+			</div>
+		</div>
+
+		<div class="u-stats u-mt-5">
+			<div class="cc-stat-card">
+				<div class="cc-stat-value" id="statTotal">&mdash;</div>
+				<div class="cc-stat-label u-mt-1">Total events</div>
+			</div>
+			<div class="cc-stat-card">
+				<div class="cc-stat-value" id="statUpcoming">&mdash;</div>
+				<div class="cc-stat-label u-mt-1">Upcoming</div>
+			</div>
+			<div class="cc-stat-card">
+				<div class="cc-stat-value" id="statRegistrations">&mdash;</div>
+				<div class="cc-stat-label u-mt-1">Registrations</div>
+			</div>
+			<div class="cc-stat-card">
+				<div class="cc-stat-value" id="statFeatured">&mdash;</div>
+				<div class="cc-stat-label u-mt-1">Spotlight events</div>
+			</div>
+		</div>
+	</section>
+	<!-- ============================= Tabs ============================= -->
+	<section class="u-mt-5">
+		<div class="cc-card u-flex u-gap-2 u-wrap" style="padding:.4rem" role="tablist"
+			aria-label="Admin console sections">
+			<button type="button" class="cc-tab is-active" id="tab-events" role="tab" data-tab="events-panel"
+				aria-selected="true" aria-controls="events-panel">
+				Manage events <span class="cc-tab-count" id="tabEventCount">0</span>
+			</button>
+			<button type="button" class="cc-tab" id="tab-students" role="tab" data-tab="students-panel"
+				aria-selected="false" aria-controls="students-panel">
+				Registered students <span class="cc-tab-count" id="tabStudentCount">0</span>
+			</button>
+		</div>
+
+		<!-- ------------------------- Manage events ------------------------ -->
+		<div class="cc-card u-mt-4" id="events-panel" role="tabpanel" aria-labelledby="tab-events">
+			<div class="cc-card-head u-wrap">
+				<div class="u-flex u-center u-gap-3 u-wrap">
+					<label class="u-flex u-center u-gap-2">
+						<span class="u-sr-only">Search events by name</span>
+						<input type="search" id="adminEventSearch" class="cc-input"
+							placeholder="Search events&hellip;" style="min-width:230px" autocomplete="off">
+					</label>
+					<label class="u-flex u-center u-gap-2">
+						<span class="u-sr-only">Filter events by category</span>
+						<select id="adminCategoryFilter" class="cc-select" style="min-width:190px">
+							<option value="">All categories</option>
+						</select>
+					</label>
+				</div>
+				<span class="cc-chip"><span id="adminEventCount">Loading&hellip;</span></span>
+			</div>
+
+			<div class="cc-table-wrap">
+				<table class="cc-table">
+					<caption class="u-sr-only">Contests and events created by the chapter</caption>
+					<thead>
+						<tr>
+							<th scope="col">Event</th>
+							<th scope="col">Category</th>
+							<th scope="col">Schedule</th>
+							<th scope="col">Venue</th>
+							<th scope="col">Sign-ups</th>
+							<th scope="col">Spotlight</th>
+							<th scope="col">Actions</th>
+						</tr>
+					</thead>
+					<tbody id="eventsTableBody"></tbody>
+				</table>
+			</div>
+		</div>
+		<!-- ---------------------- Registered students --------------------- -->
+		<div class="cc-card u-mt-4 u-hidden" id="students-panel" role="tabpanel" aria-labelledby="tab-students">
+			<div class="cc-card-head u-wrap">
+				<div class="u-flex u-center u-gap-3 u-wrap">
+					<label class="u-flex u-center u-gap-2">
+						<span class="u-sr-only">Search students by name, email or college</span>
+						<input type="search" id="adminStudentSearch" class="cc-input"
+							placeholder="Search name, email, college&hellip;" style="min-width:250px" autocomplete="off">
+					</label>
+					<label class="u-flex u-center u-gap-2">
+						<span class="u-sr-only">Filter registrations by event</span>
+						<select id="adminEventFilter" class="cc-select" style="min-width:230px">
+							<option value="">All events</option>
+						</select>
+					</label>
+				</div>
+				<div class="u-flex u-center u-gap-2">
+					<span class="cc-chip"><span id="adminStudentCount">Loading&hellip;</span></span>
+					<button type="button" class="cc-btn cc-btn-ghost" id="resetStudents">Reset</button>
+				</div>
+			</div>
+
+			<div class="cc-table-wrap">
+				<table class="cc-table">
+					<caption class="u-sr-only">Students registered for chapter events</caption>
+					<thead>
+						<tr>
+							<th scope="col">Student</th>
+							<th scope="col">Email</th>
+							<th scope="col">College / Year</th>
+							<th scope="col">Phone</th>
+							<th scope="col">Event</th>
+							<th scope="col">Registered</th>
+						</tr>
+					</thead>
+					<tbody id="studentsTableBody"></tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+
+	<!-- ===================== Create / edit event modal ==================- -->
+	<div class="cc-modal-backdrop" id="eventModal" role="dialog" aria-modal="true"
+		aria-labelledby="eventModalTitle" aria-hidden="true">
+		<div class="cc-modal">
+			<div class="cc-modal-head">
+				<div>
+					<h2 id="eventModalTitle" style="font-size:1.15rem">Create a new event</h2>
+					<p class="cc-muted u-mt-1" style="font-size:.85rem" id="eventModalHint">
+						Published events appear on the student calendar instantly.
+					</p>
+				</div>
+				<button type="button" class="cc-icon-btn" data-modal-close aria-label="Close dialog">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<form id="eventForm" novalidate>
+				<input type="hidden" id="evId" name="id">
+				<div class="cc-modal-body">
+					<div class="u-grid u-gap-4">
+						<div>
+							<label class="cc-label" for="evName">
+								Event name <span class="cc-required">*</span>
+							</label>
+							<input id="evName" name="name" type="text" class="cc-input" maxlength="150"
+								placeholder="October Rated Contest" data-autofocus required>
+							<p class="cc-field-error" data-error-for="name"></p>
+						</div>
+
+						<div class="u-split">
+							<div>
+								<label class="cc-label" for="evCategory">
+									Category <span class="cc-required">*</span>
+								</label>
+								<select id="evCategory" name="category" class="cc-select" required></select>
+								<input id="evCategoryCustom" type="text" class="cc-input u-mt-2 u-hidden"
+									maxlength="60" placeholder="Type the new category name">
+								<p class="cc-field-error" data-error-for="category"></p>
+							</div>
+							<div>
+								<label class="cc-label" for="evVenue">
+									Venue <span class="cc-required">*</span>
+								</label>
+								<input id="evVenue" name="venue" type="text" class="cc-input" maxlength="150"
+									placeholder="CS Lab 2 / Online judge" required>
+								<p class="cc-field-error" data-error-for="venue"></p>
+							</div>
+						</div>
+
+						<div class="u-split">
+							<div>
+								<label class="cc-label" for="evDate">
+									Date <span class="cc-required">*</span>
+								</label>
+								<input id="evDate" name="eventDate" type="date" class="cc-input" required>
+								<p class="cc-field-error" data-error-for="eventDate"></p>
+							</div>
+							<div>
+								<label class="cc-label" for="evTime">
+									Start time <span class="cc-required">*</span>
+								</label>
+								<input id="evTime" name="eventTime" type="time" class="cc-input" required>
+								<p class="cc-field-error" data-error-for="eventTime"></p>
+							</div>
+						</div>
+
+						<div>
+							<label class="cc-label" for="evDescription">
+								Description <span class="cc-required">*</span>
+							</label>
+							<textarea id="evDescription" name="description" class="cc-textarea" rows="4"
+								maxlength="1000" placeholder="What will the participants solve or build?" required></textarea>
+							<p class="cc-field-error" data-error-for="description"></p>
+						</div>
+
+						<label class="cc-checkbox" for="evFeatured">
+							<input type="checkbox" id="evFeatured" name="featured">
+							<span>Promote this event in the home page spotlight</span>
+						</label>
+					</div>
+				</div>
+
+				<div class="cc-modal-foot">
+					<button type="button" class="cc-btn cc-btn-ghost" data-modal-close>Cancel</button>
+					<button type="submit" class="cc-btn cc-btn-primary" id="eventSubmit">Create event</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- ========================= Delete confirm ======================== -->
+	<div class="cc-modal-backdrop" id="deleteModal" role="dialog" aria-modal="true"
+		aria-labelledby="deleteModalTitle" aria-hidden="true">
+		<div class="cc-modal cc-modal-sm">
+			<div class="cc-modal-head">
+				<h2 id="deleteModalTitle" style="font-size:1.05rem">Delete this event?</h2>
+			</div>
+			<div class="cc-modal-body">
+				<p class="cc-soft" style="font-size:.9rem;line-height:1.7">
+					<strong id="deleteEventName" class="cc-row-title"></strong> and all of its student
+					registrations will be removed. This cannot be undone.
+				</p>
+			</div>
+			<div class="cc-modal-foot">
+				<button type="button" class="cc-btn cc-btn-ghost" data-modal-close>Keep event</button>
+				<button type="button" class="cc-btn cc-btn-danger" id="confirmDelete">Delete event</button>
+			</div>
+		</div>
+	</div>
+</main>
+
+<script src="js/admin.js" defer></script>
+</body>
+</html>
